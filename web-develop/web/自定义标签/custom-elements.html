@@ -1,12 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Document</title>
-</head>
-<body>
-    Hello
-</body>
+    <script>
+      window.onload = () => {
+        window.customElements.define(
+          'email-element',
+          class extends HTMLElement {
+            constructor() {
+              super()
+              this.validateEmail.bind(this)
+              this.debounce.bind(this)
+              const root = this.attachShadow({ mode: 'open' })
+              const email = document.createElement('input')
+              email.type = 'text'
+              root.appendChild(email)
+              if (
+                this.hasAttribute('validate') &&
+                this.getAttribute('validate')
+              ) {
+                email.addEventListener(
+                  'keyup',
+                  this.debounce(this.validateEmail, 1000)
+                )
+              }
+              if (this.hasAttribute('separator')) {
+                let separator = this.getAttribute('separator')
+                email.value = separator
+              }
+            }
+            validateEmail(keyboardEvent) {
+              console.log(keyboardEvent.key)
+            }
+            debounce(fn, interval) {
+              let timer = null
+              let content = this
+              return args => {
+                window.clearTimeout(timer)
+                timer = setTimeout(function() {
+                  fn.call(content, args)
+                }, interval)
+              }
+            }
+          }
+        )
+      }
+    </script>
+  </head>
+  <body>
+    Hello <email-element validate="true" separator="#"></email-element>
+  </body>
 </html>
