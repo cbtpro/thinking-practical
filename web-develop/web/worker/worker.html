@@ -8,14 +8,28 @@
     <script>
       let arrayLength = 2.5 * Math.pow(10, 7)
 
-      console.time('arrayLength')
-      for (let j = 0; j < arrayLength; j++) {}
-      console.timeEnd('arrayLength')
+      function worker1() {
+        console.time('arrayLength')
+        for (let j = 0; j < arrayLength; j++) {}
+        console.timeEnd('arrayLength')
+      }
 
-      let arr = new Array(arrayLength)
-      console.time('[].length')
-      for (let i = 0; i < arr.length; i++) {}
-      console.timeEnd('[].length')
+      function worker2() {
+        let arr = new Array(arrayLength)
+        console.time('[].length')
+        for (let i = 0; i < arr.length; i++) {}
+        console.timeEnd('[].length')
+      }
+
+      setTimeout(() => {
+        worker1()
+      }, 10)
+      setTimeout(() => {
+        worker2()
+      }, 10)
+
+      worker1()      
+      worker2()
 
       let myWorker = new Worker('worker.js')
       myWorker.onmessage = function(e) {
