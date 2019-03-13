@@ -8,6 +8,7 @@
     <script>
       let arrayLength = 2.5 * Math.pow(10, 7)
       let arr = new Array(arrayLength).fill(0)
+
       function worker1() {
         console.time('arrayLength')
         for (let j = 0; j < arrayLength; j++) {}
@@ -27,7 +28,7 @@
         worker2()
       }, 10)
 
-      worker1()      
+      worker1()
       worker2()
 
       let myWorker = new Worker('worker.js')
