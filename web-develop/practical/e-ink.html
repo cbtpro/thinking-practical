@@ -16,6 +16,9 @@
             border-radius: 20px;
             background-color: rgba(0, 0, 0, 0.9);
             position: relative;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%)
         }
         div.e-ink-reader div.inner {
             width: calc(100% - 20px);
@@ -27,25 +30,33 @@
             transform: translate(-50%, -50%);
             position: absolute;
         }
-        div.e-ink-reader div.inner::before {
-            content: "·";
-            font-size: 100px;
-            color: white;
-            top: 20%;
-            position: relative;
+        div.e-ink-reader div.inner span.prev-page {
+            color: #e7e7e7;
+            font-size: 50px;
+            top: 30%;
+            position: absolute;
             cursor: pointer;
         }
-        div.e-ink-reader div.inner::after {
-            content: "·";
-            font-size: 100px;
-            color: white;
-            float: right;
-            top: 20%;
-            position: relative;
+        div.e-ink-reader div.inner span.first-prev-page {
+            left: 10px;
+        }
+        div.e-ink-reader div.inner span.second-prev-page {
+            right: 10px;
+        }
+        div.e-ink-reader div.inner span.next-page {
+            position: absolute;
+            top: 50%;
+            background-color: #e7e7e7;
+            width: 2px;
+            height: 150px;
+            display: block;
             cursor: pointer;
         }
-        div.e-ink-reader div.inner::before:hover {
-            color: red;
+        div.e-ink-reader div.inner span.first-next-page {
+            left: 10px;
+        }
+        div.e-ink-reader div.inner span.second-next-page {
+            right: 10px;
         }
         div.e-ink-reader div.inner div.container {
             width: calc(100% - 100px);
@@ -71,10 +82,14 @@
 <body>
     <div class="e-ink-reader">
         <div class="inner">
+            <span class="prev-page first-prev-page">·</span>
+            <span class="next-page first-next-page"></span>
             <div class="container">
                 &nbsp;&nbsp;新语法以关键字class开头，然后就是类型名，而花括号中定义的是属性和方法。定义方法不必再使用function关键字，有方法名和圆括号就可以了。如果把方法命名为constructor，那它就是这个类的构造函数（与前一个例子中的Person函数一样）。在这个类中定义的方法和属性都会添加到原型上，具体来说，sayName()和getOlder()都是在Persion.prototype上定义的。
 
             </div>
+            <span class="prev-page second-prev-page">·</span>
+            <span class="next-page second-next-page"></span>
             <footer>Kindle</footer>
         </div>
     </div>
